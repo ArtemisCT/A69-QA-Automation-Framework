@@ -119,7 +119,6 @@ public class ProfilePage extends BasePage {
     public String getEmailValidationMessage() {
         return emailInput.getAttribute("validationMessage");
     }
-
 }
 
 

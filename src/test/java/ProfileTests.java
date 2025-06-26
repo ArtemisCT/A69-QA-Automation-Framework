@@ -134,7 +134,7 @@ public class ProfileTests extends BaseTest {
     }
 
     @Test
-    public void loginAfterUpdateProfileWithNewEmail() {
+    public void loginAfterUpdateProfileWithTheNewEmail() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.login("artemisia.chalkiopoulou@testpro.io", "ArtemisCT@testpro2025");
         loginPage.clickLoginBtn();
