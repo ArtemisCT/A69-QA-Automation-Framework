@@ -19,6 +19,7 @@ public class LoginPage extends BasePage {
     @FindBy(css = "button[type='submit']")
             WebElement clickSubmit;
 
+
     public LoginPage provideEmail(String email) {
         wait.until(ExpectedConditions.visibilityOf(emailField));
         emailField.click();

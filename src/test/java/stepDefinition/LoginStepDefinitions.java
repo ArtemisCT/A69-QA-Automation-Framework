@@ -49,7 +49,7 @@
 ////        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("[type='password']"))).sendKeys(password);
 //    }
 //
-//    public void clickSubmit() {
+//    public void clickSubmitBtn() {
 //        LoginPage loginPage = new LoginPage(driver);
 //        loginPage.clickLoginBtn();
 ////        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("[type='submit']"))).click();

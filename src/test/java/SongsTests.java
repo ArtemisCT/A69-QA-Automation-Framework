@@ -18,7 +18,7 @@ public class SongsTests extends BaseTest {
     public void checkVisibilityTest() {
         LoginPage loginPage = new LoginPage(getDriver());
         loginPage.provideEmail("artemisia.chalkiopoulou@testpro.io")
-                .providePassword("22002255")
+                .providePassword("Artemis@testpro2025")
                 .clickLoginBtn();
 
         WebElement title = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("title")));
@@ -37,7 +37,7 @@ public class SongsTests extends BaseTest {
         String text = "Philip Ravenel - The Greatest Century";
         String playlistName = basePage.generateRandomPlaylistName();
 
-        loginPage.login("artemisia.chalkiopoulou@testpro.io", "22002255");
+        loginPage.login("artemisia.chalkiopoulou@testpro.io", "Artemis@testpro2025");
 
         songsPage.searchForSong(text);
         songsPage.clickViewAllBtn();
@@ -54,7 +54,7 @@ public class SongsTests extends BaseTest {
         LoginPage loginPage = new LoginPage(getDriver());
         SongsPage songsPage = new SongsPage(getDriver());
         loginPage.provideEmail("artemisia.chalkiopoulou@testpro.io")
-                .providePassword("22002255")
+                .providePassword("Artemis@testpro2025")
                 .clickLoginBtn();
 
         WebElement playOrResumeBtn = getDriver().findElement(By.cssSelector("[title='Play or resume']"));

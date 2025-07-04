@@ -16,7 +16,7 @@ public class PlaylistTests extends BaseTest {
         BasePage basePage = new BasePage(getDriver());
 
         String playlistName = basePage.generateRandomPlaylistName();
-        loginPage.login("artemisia.chalkiopoulou@testpro.io", "22002255");
+        loginPage.login("artemisia.chalkiopoulou@testpro.io", "Artemis@testpro2025");
         playlistsPage.createPlaylistWithPlusBtn(playlistName);
         Thread.sleep(1000);
         playlistsPage.deletePlaylist();
