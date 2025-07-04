@@ -41,7 +41,7 @@ public class ProfilePage extends BasePage {
 
 
     public void openProfile() throws InterruptedException {
-        Thread.sleep(1000);
+    Thread.sleep(1000);
         wait.until(ExpectedConditions.elementToBeClickable(avatar)).click();
     }
 
