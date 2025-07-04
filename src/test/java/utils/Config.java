@@ -5,23 +5,15 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class Config {
-    private static final Properties props = new Properties();
-
+    private static final Properties PROPS = new Properties();
     static {
-        try (FileInputStream in = new FileInputStream("config.properties")) {
-            props.load(in);
+        try (FileInputStream fis = new FileInputStream("config.properties")) {
+            PROPS.load(fis);
         } catch (IOException e) {
-            // Fail fast if we can’t read the file
-            throw new RuntimeException("Could not load config.properties from project root", e);
+            throw new RuntimeException("Could not load config.properties", e);
         }
     }
-
-    /**
-     * @param key the property name (e.g. "user.primary.email")
-     * @return the value, or null if missing
-     */
     public static String get(String key) {
-        return props.getProperty(key);
+        return PROPS.getProperty(key);
     }
-
 }
