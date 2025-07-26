@@ -14,3 +14,4 @@ For more detailed instructions regarding the installation of the framework, plea
 
 <h2>Contact Information</h2>
 If you have any questions or need further assistance, feel free to contact the course instructor, our support team or send a message in Teams for A69.  
+

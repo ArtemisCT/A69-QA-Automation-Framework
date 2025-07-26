@@ -5,6 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import pages.ProfilePage;
+
+import static org.bouncycastle.cms.RecipientId.password;
 
 public class LoginPage extends BasePage {
 
@@ -13,11 +16,13 @@ public class LoginPage extends BasePage {
     }
 
     @FindBy(css = "input[type='email']")
-            WebElement emailField;
+    WebElement emailField;
     @FindBy(css = "input[type='password']")
-            WebElement passwordField;
+    WebElement passwordField;
     @FindBy(css = "button[type='submit']")
-            WebElement clickSubmit;
+    WebElement clickSubmit;
+    @FindBy(css = "span[class='name']")
+    WebElement profileIcon;
 
 
     public LoginPage provideEmail(String email) {
@@ -49,6 +54,17 @@ public class LoginPage extends BasePage {
         provideEmail(email);
         providePassword(password);
         clickLoginBtn();
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".avatar")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("span.name")));
+
         return this;
+    }
+
+    public Object openProfile() {
+//        wait.until(ExpectedConditions.visibilityOf(profileIcon));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("span.name")));
+
+        profileIcon.click();
+        return null;
     }
 }

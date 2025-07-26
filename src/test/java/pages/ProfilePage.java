@@ -22,8 +22,11 @@ public class ProfilePage extends BasePage {
     WebElement profileName;
     @FindBy(css = "#inputProfileEmail")
     WebElement emailInput;
-    @FindBy(css = ".btn-submit")
+    @FindBy(css = "button[type='submit']")
     WebElement saveBtn;
+    @FindBy(id = "inputProfileNewPassword")
+    WebElement newPasswordInput;
+
 
     By profile = By.cssSelector(".view-profile>span");
     By successMsg = By.cssSelector(".success.show");
@@ -40,9 +43,10 @@ public class ProfilePage extends BasePage {
     By themeVioletBackground = By.xpath("//div[@data-testid='theme-card-violet'][@class='theme selected']");
 
 
-    public void openProfile() throws InterruptedException {
-    Thread.sleep(1000);
-        wait.until(ExpectedConditions.elementToBeClickable(avatar)).click();
+    public void openProfile() {
+            wait.until(ExpectedConditions.elementToBeClickable(avatar)).click();
+            wait.until(ExpectedConditions.visibilityOf(currentPasswordInput));
+
     }
 
     public boolean isAvatarDisplayed(){
@@ -119,6 +123,38 @@ public class ProfilePage extends BasePage {
     public String getEmailValidationMessage() {
         return emailInput.getAttribute("validationMessage");
     }
+//    public void tearDownBrowser() {
+//        driver.quit();
+//    }
+
+    public void changeEmailAndPassword(String currentPassword, String newEmail, String newPassword) {
+        // Change email if provided (not null)
+        if (newEmail != null) {
+            emailInput.click();
+            emailInput.clear();
+            emailInput.sendKeys(newEmail);
+        }
+
+        // Change password if provided (not null)
+        if (newPassword != null) {
+            newPasswordInput.click();
+            newPasswordInput.clear();
+            newPasswordInput.sendKeys(newPassword);
+        }
+
+        // Always enter the current password (required for saving)
+        currentPasswordInput.click();
+        currentPasswordInput.clear();
+        currentPasswordInput.sendKeys(currentPassword);
+
+        // Save changes
+        saveProfile();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(successMsg));
+    }
+
+
 }
+
+
 
 

@@ -11,8 +11,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.sql.DriverManager.getDriver;
-
 public class PlaylistsPage extends BasePage {
     public PlaylistsPage(WebDriver givenDriver) {
         super(givenDriver);

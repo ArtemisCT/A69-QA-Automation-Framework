@@ -1,22 +1,45 @@
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.BasePage;
 import pages.LoginPage;
 import pages.ProfilePage;
 import utils.Config;
-
 import java.time.Duration;
 
 public class ProfileTestsTry extends BaseTest {
 
     private static final String PRIMARY_EMAIL           = Config.get("user.primary.email");
-    private static final String PRIMARY_PASSWORD        = utils.Config.get("user.primary.password");
-    private static final String PRIMARY_UPDATED_PASSWORD= utils.Config.get("user.primary.updatedPassword");
-    private static final String SECONDARY_EMAIL         = utils.Config.get("user.secondary.email");
-    private static final String SECONDARY_PASSWORD      = utils.Config.get("user.secondary.password");
+    private static final String PRIMARY_PASSWORD        = Config.get("user.primary.password");
+    private static final String PRIMARY_UPDATED_PASSWORD= Config.get("user.primary.updatedPassword");
+    private static final String SECONDARY_EMAIL         = Config.get("user.secondary.email");
+    private static final String SECONDARY_PASSWORD      = Config.get("user.secondary.password");
+
+//    @BeforeMethod
+//    public void setUp() {
+//        driver.manage().deleteAllCookies();
+//        ((JavascriptExecutor) driver).executeScript("window.localStorage.clear();");
+//        driver.get(Config.get("app.url"));
+//    }
+//
+//    @BeforeMethod
+//    public void goToLogin() {
+//        driver.manage().deleteAllCookies();
+//        ((JavascriptExecutor) driver).executeScript("window.localStorage.clear();");
+//        driver.get(Config.get("app.url"));
+//    }
+@BeforeMethod
+public void setUp() {
+    driver.manage().deleteAllCookies();
+    ((JavascriptExecutor) driver).executeScript("window.localStorage.clear();");
+    driver.get(Config.get("app.url"));
+}
+
 
     @Test
     public void changeProfileName() throws InterruptedException {
@@ -167,7 +190,6 @@ public class ProfileTestsTry extends BaseTest {
                 "Expected a validation message when name is removed.");
     }
 
-
     @Test
     public void loginAfterUpdateProfileWithTheNewEmail() {
         LoginPage loginPage = new LoginPage(driver);
@@ -178,7 +200,6 @@ public class ProfileTestsTry extends BaseTest {
         wait.until(ExpectedConditions.urlContains("/#!/home"));
         Assert.assertTrue(driver.getCurrentUrl().contains("/#!/home"), "User was not redirected to the Home Page.");
     }
-
 
     @Test
     public void updateProfileWithInvalidEmail_NoAtSymbolTest() throws InterruptedException {
@@ -196,10 +217,6 @@ public class ProfileTestsTry extends BaseTest {
         Assert.assertTrue(validationMsg.contains("include an '@'"), "Expected browser validation message not found.");
     }
 
-
-
-
-
     @Test
     public void loginAfterUpdateProfileWithOldEmail() throws InterruptedException {
         LoginPage loginPage = new LoginPage(driver);
@@ -211,5 +228,28 @@ public class ProfileTestsTry extends BaseTest {
         Assert.assertFalse(driver.getCurrentUrl().contains("/#!/home"), "User should not redirected to the Home Page.");
     }
 
+    @AfterSuite(alwaysRun = true)
+    public void resetProfileToPrimary() {
+        try {
+            LoginPage loginPage = new LoginPage(driver);
+            ProfilePage profilePage = new ProfilePage(driver);
+
+            loginPage.login(Config.get("user.primary.email"), Config.get("user.primary.updatedPassword"));
+            profilePage.openProfile();
+            profilePage.changeEmailAndPassword(
+                    Config.get("user.primary.updatedPassword"),
+                    Config.get("user.primary.email"),
+                    Config.get("user.primary.password")
+            );
+        } catch (Exception e) {
+            System.err.println("Error in @AfterSuite cleanup: " + e.getMessage());
+        } finally {
+            if (driver != null) {
+                driver.quit();
+                driver = null;
+            }
+        }
+    }
 
 }
+

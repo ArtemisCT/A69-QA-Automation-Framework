@@ -1,3 +1,4 @@
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.HomePage;
@@ -16,7 +17,9 @@ public class LoginTests extends BaseTest {
                 .providePassword("22002255")
                 .clickLoginBtn();
 
-        Assert.assertTrue(profilePage.isAvatarDisplayed());
+//        Assert.assertTrue(profilePage.isAvatarDisplayed());
+        Assert.assertTrue(driver.findElement(By.cssSelector("span.name")).isDisplayed());
+
         getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
